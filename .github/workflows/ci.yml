@@ -11,7 +11,7 @@ jobs:
     name: Build y pruebas
     runs-on: ubuntu-latest
     steps:
-      - name: 1 Descargar el código
+      - name: 1 Descargar el cÃ³digo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -29,10 +29,10 @@ jobs:
       - name: 4 Pruebas unitarias (Surefire)
         run: mvn -B test
 
-      - name: 5 Pruebas de integración, cobertura y empaquetado (Failsafe + JaCoCo)
-        run: mvn -B verify -DskipUTs=true
+      - name: 5 Pruebas de integraciÃ³n, cobertura y empaquetado (Failsafe + JaCoCo)
+        run: mvn -B verify -DskipUTs=true -Djacoco.append=true
 
-      - name: 6 Análisis estático (SonarQube Cloud)
+      - name: 6 AnÃ¡lisis estÃ¡tico (SonarQube Cloud)
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
@@ -54,7 +54,7 @@ jobs:
           path: target/*.jar
 
   release:
-    name: Publicar versión
+    name: Publicar versiÃ³n
     needs: build-and-test
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
